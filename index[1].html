@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#09090f">
+  <title>VibeFlow — Music for every mood</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark">♫</span><span>Vibe<span class="brand-light">Flow</span></span></a>
+      <nav class="main-nav">
+        <button class="nav-item active" data-view="home"><span>⌂</span> Home</button>
+        <button class="nav-item" data-view="search"><span>⌕</span> Search</button>
+        <button class="nav-item" data-view="library"><span>▤</span> Your Library</button>
+      </nav>
+      <div class="side-section">
+        <div class="side-heading">YOUR COLLECTION <button id="newPlaylist" title="Create playlist">＋</button></div>
+        <button class="nav-item" data-view="liked"><span class="liked-icon">♥</span> Liked Songs</button>
+        <div id="playlistNav" class="playlist-nav"></div>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="mini-note"><span class="pulse"></span><div><b>Your sound, your vibe</b><small>Discover something new</small></div></div>
+        <button id="settingsOpen" class="settings-link">⚙ Settings & API key</button>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="history-buttons"><button id="backBtn" aria-label="Back">‹</button><button id="forwardBtn" aria-label="Forward">›</button></div>
+        <div class="top-actions"><span class="api-status" id="apiStatus">Search setup needed</span><button class="profile">V</button></div>
+      </header>
+      <section id="homeView" class="view active-view">
+        <div class="hero">
+          <div class="hero-copy"><span class="eyebrow">YOUR DAILY SOUNDTRACK</span><h1>Feel the<br><em>frequency.</em></h1><p>Find the songs that match your moment. Search YouTube and play them right here.</p><button class="primary-btn" id="heroExplore">Explore music <span>→</span></button></div>
+          <div class="hero-art"><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="hero-disc"><span>♫</span></div><div class="floating-tag tag-one">NOW PLAYING</div><div class="floating-tag tag-two">YOUR VIBE ✦</div></div>
+        </div>
+        <div class="section-heading"><div><span class="eyebrow">PICK YOUR MOOD</span><h2>What's your vibe today?</h2></div></div>
+        <div class="mood-grid">
+          <button class="mood-card mood-purple" data-query="lofi chill beats"><span>☁</span><b>Chill</b><small>Slow it down</small></button>
+          <button class="mood-card mood-blue" data-query="latest pop hits"><span>✦</span><b>Pop</b><small>Feel the beat</small></button>
+          <button class="mood-card mood-orange" data-query="Bollywood romantic songs"><span>♡</span><b>Romance</b><small>Heart on repeat</small></button>
+          <button class="mood-card mood-green" data-query="workout motivation music"><span>⚡</span><b>Workout</b><small>Power mode</small></button>
+          <button class="mood-card mood-pink" data-query="indie hindi songs"><span>☾</span><b>Indie</b><small>Find your own</small></button>
+        </div>
+        <div class="section-heading"><div><span class="eyebrow">GET STARTED</span><h2>Find your next favourite</h2></div><button class="text-btn" id="startSearch">Search YouTube →</button></div>
+        <div class="empty-discover"><div class="empty-icon">⌕</div><div><b>Your next favourite is one search away</b><p>Search any song, artist, album or playlist. Results come from YouTube.</p></div><button class="outline-btn" id="emptySearch">Start searching</button></div>
+      </section>
+
+      <section id="searchView" class="view">
+        <div class="page-title"><span class="eyebrow">DISCOVER</span><h1>Search music</h1><p>Search millions of music videos available on YouTube.</p></div>
+        <form id="searchForm" class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="What do you want to listen to?" autocomplete="off"><button type="submit">Search</button></form>
+        <div class="search-hints"><span>Try:</span><button data-search="Arijit Singh">Arijit Singh</button><button data-search="The Weeknd">The Weeknd</button><button data-search="lofi hip hop">Lofi beats</button><button data-search="Taylor Swift">Taylor Swift</button></div>
+        <div class="results-header"><h2 id="resultsTitle">Start exploring</h2><span id="resultCount"></span></div>
+        <div id="results" class="track-grid"><div class="placeholder-state"><span>♫</span><b>Music starts with a search</b><p>Enter a song, artist or mood above.</p></div></div>
+      </section>
+
+      <section id="libraryView" class="view">
+        <div class="page-title"><span class="eyebrow">YOUR MUSIC</span><h1>Your Library</h1><p>Your liked tracks and playlists, all in one place.</p></div>
+        <div class="library-tabs"><button class="tab active" data-library="all">All</button><button class="tab" data-library="playlists">Playlists</button><button class="tab" data-library="liked">Liked songs</button></div>
+        <div id="libraryContent" class="track-grid"></div>
+      </section>
+
+      <section id="likedView" class="view">
+        <div class="liked-hero"><div class="liked-cover">♥</div><div><span class="eyebrow">PLAYLIST</span><h1>Liked Songs</h1><p id="likedCount">Your favourite tracks in one place</p></div></div>
+        <div id="likedContent" class="track-list"></div>
+      </section>
+      <footer class="footer">VibeFlow is an independent music discovery interface. Music search and playback are provided by YouTube. <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">YouTube Terms</a></footer>
+    </main>
+  </div>
+
+  <div id="playerBar" class="player-bar">
+    <div class="now-playing"><img id="nowThumb" src="assets/default-cover.svg" alt=""><div class="now-meta"><b id="nowTitle">Choose a track</b><small id="nowChannel">Your music will appear here</small></div><button id="likeCurrent" class="like-btn" title="Like track">♡</button></div>
+    <div class="player-center"><div class="player-controls"><button id="prevTrack" title="Previous">|‹</button><button id="playPause" class="play-main" title="Play/Pause">▶</button><button id="nextTrack" title="Next">›|</button></div><div class="progress-row"><span id="elapsed">0:00</span><div class="progress-track"><div id="progressFill"></div></div><span id="duration">YouTube</span></div></div>
+    <div class="player-extra"><button id="queueBtn" title="Queue">☷</button><span>♫</span><div class="volume-track"><div></div></div></div>
+  </div>
+
+  <div id="youtubePlayer" class="youtube-player hidden-player"></div>
+  <div id="toast" class="toast"></div>
+
+  <div id="settingsModal" class="modal-backdrop">
+    <div class="modal">
+      <button class="modal-close" id="settingsClose">×</button>
+      <span class="eyebrow">CONNECT SEARCH</span><h2>YouTube Data API</h2>
+      <p>To search YouTube automatically, add your own YouTube Data API v3 key. The player uses YouTube's official embedded player.</p>
+      <label for="apiKeyInput">YouTube API key</label><input id="apiKeyInput" type="password" placeholder="Paste your API key">
+      <div class="modal-help">Create a key in Google Cloud Console, enable <b>YouTube Data API v3</b>, and restrict the key to your website domain. Do not share your key publicly.</div>
+      <div class="modal-actions"><button id="clearKey" class="outline-btn">Clear key</button><button id="saveKey" class="primary-btn">Save key</button></div>
+      <a href="https://console.cloud.google.com/apis/library/youtube.googleapis.com" target="_blank" rel="noopener">Open YouTube Data API v3 ↗</a>
+    </div>
+  </div>
+
+  <div id="playlistModal" class="modal-backdrop">
+    <div class="modal small-modal"><button class="modal-close" id="playlistClose">×</button><span class="eyebrow">YOUR COLLECTION</span><h2>Create playlist</h2><label for="playlistName">Playlist name</label><input id="playlistName" maxlength="40" placeholder="Late night vibes"><button id="createPlaylist" class="primary-btn full-btn">Create playlist</button></div>
+  </div>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="app.js"></script>
+</body>
+</html>
